@@ -1,6 +1,5 @@
 package com.example.chkimshop.item.entity;
 
-import com.example.chkimshop.BaseEntity;
 import com.example.chkimshop.catalog.entity.Category;
 import com.example.chkimshop.common.exception.StockQuantityNotEnoughtException;
 import com.example.chkimshop.user.entity.User;
@@ -13,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "item")
 @Getter
 @NoArgsConstructor
-public class Item extends BaseEntity {
+public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
@@ -28,16 +27,16 @@ public class Item extends BaseEntity {
     @Column(name = "stock_quantity")
     private int stockQuantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private User seller;
 
 
-    public void decreaseStockQuantity(Long quantity){
+    public void decreaseStockQuantity(Long quantity) {
         if (this.getStockQuantity() >= quantity) {
             this.stockQuantity -= quantity;
             return;

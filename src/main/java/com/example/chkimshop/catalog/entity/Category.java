@@ -1,6 +1,5 @@
 package com.example.chkimshop.catalog.entity;
 
-import com.example.chkimshop.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +11,7 @@ import java.util.List;
 @Table(name = "category")
 @Getter
 @NoArgsConstructor
-public class Category extends BaseEntity {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
@@ -21,7 +20,7 @@ public class Category extends BaseEntity {
     @Column(name = "category_name")
     private String categoryName;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<com.example.chkimshop.item.entity.Item> itemList = new ArrayList<>();
 
 

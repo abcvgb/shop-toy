@@ -1,6 +1,5 @@
 package com.example.chkimshop.user.entity;
 
-import com.example.chkimshop.BaseEntity;
 import com.example.chkimshop.order.entity.Order;
 import com.example.chkimshop.user.dto.RequestCreateUser;
 import lombok.Getter;
@@ -13,19 +12,19 @@ import java.util.List;
 @Table(name = "user")
 @Getter
 @NoArgsConstructor
-public class User extends BaseEntity {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "buyUser")
+    @OneToMany(mappedBy = "buyUser", fetch = FetchType.LAZY)
     private List<Order> orderList;
 
 
